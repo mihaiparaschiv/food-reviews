@@ -1,0 +1,46 @@
+version: "2"
+
+# inspired by https://github.com/jupyter-incubator/dashboards_setup/tree/master/docker_deploy
+
+services:
+
+    notebook:
+        build:
+            context: .
+            dockerfile: notebook.Dockerfile
+        depends_on:
+            - dashboards
+        volumes:
+            - ${FOOD_REVIEWS_VOLUME}:/home/jovyan/work
+        env_file:
+            - notebook.env
+        environment:
+            DASHBOARD_SERVER_URL: http://dashboards:3000/
+            PYTHONPATH: /home/jovyan/work
+        ports:
+            - "8888:8888"
+
+    dashboards:
+        build:
+            context: .
+            dockerfile: dashboards.Dockerfile
+        depends_on:
+            - kernelgateway
+        env_file:
+            - dashboards.env
+        environment:
+            PORT: 3000
+            KERNEL_GATEWAY_URL: http://kernelgateway:8888
+            PUBLIC_LINK_PATTERN: http://localhost:3000
+        ports:
+            - "3000:3000"
+
+    kernelgateway:
+        build:
+            context: .
+            dockerfile: notebook.Dockerfile
+        volumes:
+            - ${FOOD_REVIEWS_VOLUME}:/home/jovyan/work
+        environment:
+            KG_ALLOW_ORIGIN: '*'
+            PYTHONPATH: /home/jovyan/work
