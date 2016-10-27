@@ -24,6 +24,4 @@ class TextStats(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, posts):
-        return [{'length': len(text),
-                 'num_sentences': text.count('.')}
-                for text in posts]
+        return [{'length': len(text)} for text in posts]
