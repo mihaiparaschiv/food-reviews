@@ -27,3 +27,9 @@ I built this project as a template for analyzing data sets and fitting scikit-le
 4. Open the page at *http://`docker-host`:8888/*.
 5. Download the data from [Kaggle](https://www.kaggle.com/snap/amazon-fine-food-reviews) and upload `Reviews.csv` into the `data` folder.
 6. Go to *http://`docker-host`:8888/notebooks/Overview.ipynb*.
+
+## Login
+
+- Jupyter Notebook password: `demo`
+- Jupyter Dashboards username: `demo`
+- Jupyter Dashboards password: `demo`
